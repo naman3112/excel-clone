@@ -83,3 +83,46 @@ body{
     width: 3.5vw;
     min-width: 55px;
 }
+.formula-bar{
+    display: flex;
+    flex-direction: row;
+    height: 4vh;
+   justify-content: center;
+   align-items: center ;
+   padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    background-color: rgb(211, 211, 211);
+}
+#selected-cell{
+    width: 120px;
+   
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    overflow: hidden ;
+    background-color: #fff;
+}
+#formula-sign{
+    width: 40px;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+    background-color: rgb(211, 211, 211);
+
+}
+#formula-input{
+    width: calc(100vw - 160px);
+   
+    height: 70%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background-color: #fff;
+
+}
