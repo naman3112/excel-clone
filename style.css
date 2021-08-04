@@ -159,10 +159,11 @@ body{
 }
 
 #cells {
+    position: relative;
     width: calc(100vw - 25px);
     height: calc(76vh - 25px);
     border: 1px solid lightgray;
-    overflow: hidden;
+    overflow: scroll;
 }
 
 .column-name {

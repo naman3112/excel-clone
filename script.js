@@ -1,3 +1,10 @@
+const ps=new PerfectScrollbar("#cells",{
+    wheelSpeed: 15, 
+    wheelPropagation: true
+
+});
+
+ 
 for (let i = 1; i <= 100; i++) {
   let str = "";
   let n = i;
