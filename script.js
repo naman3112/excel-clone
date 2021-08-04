@@ -15,4 +15,10 @@ for (let i = 1; i <= 100; i++) {
   $("#rows").append(`<div class="row-name"> ${i} </div>`)
 }
 
-console.log(str);
+for(let i=1;i<=100;i++){
+    let row=$(`<div class="cell-row"></div>`);
+    for(let j=1;j<=100;j++){
+         row.append(` <div id="row-${i}-col-${j}" class="input-cell" contenteditable="true"></div>`);         
+    }
+    $("#cells").append(row);
+}

@@ -148,18 +148,21 @@ body{
     border: 1px solid lightgray;
     display: flex;
     flex-direction: row;
+    overflow: hidden;
 }
 
 #rows {
     width: 25px;
     height: calc(76vh - 25px);
     border: 1px solid lightgray;
+    overflow: hidden;
 }
 
 #cells {
     width: calc(100vw - 25px);
     height: calc(76vh - 25px);
     border: 1px solid lightgray;
+    overflow: hidden;
 }
 
 .column-name {
