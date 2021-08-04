@@ -12,6 +12,7 @@ for (let i = 1; i <= 100; i++) {
     }
   }
   $("#columns").append(`<div class="column-name">${str}</div>`)
+  $("#rows").append(`<div class="row-name"> ${i} </div>`)
 }
 
 console.log(str);
