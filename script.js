@@ -36,6 +36,7 @@ $("#cells").scroll(function (e) {
 });
 
 $(".input-cell").dblclick(function (e) {
+  $(".input-cell.selected").removeClass("selected top-selected bottom-selected left-selected right-selected");
   $(this).attr("contenteditable", "true");
   $(this).focus();
 });
@@ -69,6 +70,8 @@ $(".input-cell").click(function (e) {
 });
 
 function unselectCell(ele, e, topCell, bottomCell,leftCell, rightCell){
+    
+  if($(ele).attr("contenteditable")=="false"){
     if($(ele).hasClass("top-selected")){
       topCell.removeClass("bottom-selected");
     }
@@ -83,6 +86,11 @@ function unselectCell(ele, e, topCell, bottomCell,leftCell, rightCell){
     } 
     $(ele).removeClass("selected top-selected bottom-selected left-selected right-selected");
 
+
+
+  }
+  
+  
 }
 
 function selectCell(ele, e,topCell, bottomCell, leftCell, rightCell) {
