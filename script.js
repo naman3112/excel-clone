@@ -145,6 +145,7 @@ let startcellSelected = false;
 let startCell = {};
 let endCell = {};
 let scrollXRStarted=false;
+let scrollXLStarted=false;
 let mouseMoved = false;
 $(".input-cell").mousemove(function (e) {
   e.preventDefault();
@@ -152,6 +153,9 @@ $(".input-cell").mousemove(function (e) {
   if (e.buttons == 1) {
     if(e.pageX>($(window).width()-100) && !scrollXRStarted){
       scrollXR();
+    }
+    else if(e.pageX<($(window).width()-100) && !scrollXLStarted){
+      scrollXL();
     }
     if (!startcellSelected) {
       let [rowId, colId] = getRowCol(this);
@@ -169,6 +173,14 @@ $(".input-cell").mousemove(function (e) {
 
 $(".input-cell").mouseenter(function (e) {
   if (e.buttons == 1) {
+    if(e.pageX< ($(window).width()-100) && scrollXRStarted){
+      clearInterval(scrollXRInterval);
+      scrollXRStarted=false;
+    }
+    if(e.pageX > 100 && scrollXLStarted){
+      clearInterval(scrollXLInterval);
+      scrollXLStarted=false;
+    }
     let [rowId, colId] = getRowCol(this);
     endCell = { rowId: rowId, colId: colId };
     selectAllBetweenCells(startCell, endCell);
@@ -202,15 +214,27 @@ function selectAllBetweenCells(start, end) {
     }
   }
 }
-let scrollXRInterval
+let scrollXRInterval;
+let scrollXLInterval;
 function scrollXR(){
-  scrollXRStarted=true;
+  scrollXRStarted = true;
   scrollXRInterval= setInterval(()=>{
     $("#cells").scrollLeft($("#cells").scrollLeft()+100)
    },100)
 }
 
+function scrollXL(){
+  scrollXLStarted=true;
+  scrollXLInterval= setInterval(()=>{
+    $("#cells").scrollLeft($("#cells").scrollLeft()-100)
+   },100)
+}
+
 $(".input-cell").mouseup(function(e){
+  console.log("i am in")
   clearInterval(scrollXRInterval);
+  clearInterval(scrollXLInterval);
   scrollXRStarted=false;
+  scrollXLStarted=false;
+  
 })
