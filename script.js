@@ -240,7 +240,15 @@ $("#rows").mousemove(function(e){
   }
   
 })
-$("body").mouseup(function(e){
+$(".data-container").mouseup(function(e){
+  console.log("i am in")
+  clearInterval(scrollXRInterval);
+  clearInterval(scrollXLInterval);
+  scrollXRStarted=false;
+  scrollXLStarted=false;
+  
+})
+$(".data-container").mouseup(function(e){
   console.log("i am in")
   clearInterval(scrollXRInterval);
   clearInterval(scrollXLInterval);
