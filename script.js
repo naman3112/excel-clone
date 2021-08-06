@@ -173,11 +173,11 @@ $(".input-cell").mousemove(function (e) {
 
 $(".input-cell").mouseenter(function (e) {
   if (e.buttons == 1) {
-    if(e.pageX< ($(window).width()-100) && scrollXRStarted){
+    if(e.pageX< ($(window).width()-10) && scrollXRStarted){
       clearInterval(scrollXRInterval);
       scrollXRStarted=false;
     }
-    if(e.pageX > 100 && scrollXLStarted){
+    if(e.pageX > 10 && scrollXLStarted){
       clearInterval(scrollXLInterval);
       scrollXLStarted=false;
     }
@@ -229,8 +229,18 @@ function scrollXL(){
     $("#cells").scrollLeft($("#cells").scrollLeft()-100)
    },100)
 }
-
-$(".input-cell").mouseup(function(e){
+$("#rows").mousemove(function(e){
+  if(e.buttons==1){
+    if(e.pageX>($(window).width()-100) && !scrollXRStarted){
+      scrollXR();
+    }
+    else if(e.pageX<10 && !scrollXLStarted){
+      scrollXL();
+    }
+  }
+  
+})
+$("body").mouseup(function(e){
   console.log("i am in")
   clearInterval(scrollXRInterval);
   clearInterval(scrollXLInterval);
