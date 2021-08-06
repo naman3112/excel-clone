@@ -143,35 +143,59 @@ function selectCell(ele, e, topCell, bottomCell, leftCell, rightCell) {
 }
 let startcellSelected = false;
 let startCell = {};
-let endCell={};
+let endCell = {};
+let mouseMoved = false;
 $(".input-cell").mousemove(function (e) {
   e.preventDefault();
-  console.log("buttoin ", e.buttons)
+ 
   if (e.buttons == 1) {
     
-    console.log(e.buttons)
     if (!startcellSelected) {
       let [rowId, colId] = getRowCol(this);
       startCell = { "rowId": rowId, "colId": colId };
+      selectAllBetweenCells(startCell,startCell);
       startcellSelected = true;
-      console.log(startCell);
-    }else{
-      let [rowId, colId]=getRowCol(this);
-      endCell={"rowId": rowId, "colId": colId};
-     selectAllBetweenCells(startCell,endCell)
-    }
-  }else{
-    startcellSelected=false
+   
+      // mouseMoved = true;
+    } 
+  } else {
+    startcellSelected = false;
+    // mouseMoved = false;
   }
 });
 
-function selectAllBetweenCells(start,end){
-  for(let i=Math.min(start.rowId,end.rowId); i<=Math.max(start.rowId, end.rowId) ; i++){
-    for(let j=Math.min(start.colId, end.colId);j<=Math.max(end.colId, start.colId); j++){
-      let[topCell, bottomCell, leftCell, rightCell]=getTopLeftBottomRightCell(i,j);
+$(".input-cell").mouseenter(function (e) {
+  if (e.buttons == 1) {
+    let [rowId, colId] = getRowCol(this);
+    endCell = { rowId: rowId, colId: colId };
+    selectAllBetweenCells(startCell, endCell);
+  }
+});
+function selectAllBetweenCells(start, end) {
+  $(".input-cell.selected").removeClass(
+    "selected top-selected bottom-selected left-selected right-selected"
+  );
+  for (
+    let i = Math.min(start.rowId, end.rowId);
+    i <= Math.max(start.rowId, end.rowId);
+    i++
+  ) {
+    for (
+      let j = Math.min(start.colId, end.colId);
+      j <= Math.max(end.colId, start.colId);
+      j++
+    ) {
+      let [topCell, bottomCell, leftCell, rightCell] =
+        getTopLeftBottomRightCell(i, j);
 
-      selectCell($(`#row-${i}-col-${j}`)[0],{"ctrlKey": true}, topCell, bottomCell, leftCell, rightCell)
-    
+      selectCell(
+        $(`#row-${i}-col-${j}`)[0],
+        { ctrlKey: true },
+        topCell,
+        bottomCell,
+        leftCell,
+        rightCell
+      );
     }
   }
 }
