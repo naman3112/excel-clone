@@ -144,19 +144,22 @@ function selectCell(ele, e, topCell, bottomCell, leftCell, rightCell) {
 let startcellSelected = false;
 let startCell = {};
 let endCell = {};
+let scrollXRStarted=false;
 let mouseMoved = false;
 $(".input-cell").mousemove(function (e) {
   e.preventDefault();
  
   if (e.buttons == 1) {
-    
+    if(e.pageX>($(window).width()-100) && !scrollXRStarted){
+      scrollXR();
+    }
     if (!startcellSelected) {
       let [rowId, colId] = getRowCol(this);
       startCell = { "rowId": rowId, "colId": colId };
       selectAllBetweenCells(startCell,startCell);
       startcellSelected = true;
    
-      // mouseMoved = true;
+      // mouseMoved = true; 
     } 
   } else {
     startcellSelected = false;
@@ -199,3 +202,15 @@ function selectAllBetweenCells(start, end) {
     }
   }
 }
+let scrollXRInterval
+function scrollXR(){
+  scrollXRStarted=true;
+  scrollXRInterval= setInterval(()=>{
+    $("#cells").scrollLeft($("#cells").scrollLeft()+100)
+   },100)
+}
+
+$(".input-cell").mouseup(function(e){
+  clearInterval(scrollXRInterval);
+  scrollXRStarted=false;
+})
