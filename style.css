@@ -173,7 +173,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: 600;
+    font-weight: bold;
 }
 .row-name{
     min-height: 25px;
