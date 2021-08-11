@@ -19,14 +19,28 @@ for (let i = 1; i <= 100; i++) {
   $("#columns").append(`<div class="column-name">${str}</div>`);
   $("#rows").append(`<div class="row-name"> ${i} </div>`);
 }
-
+let cellData=[];
 for (let i = 1; i <= 100; i++) {
   let row = $(`<div class="cell-row"></div>`);
+  let rowArray=[];
   for (let j = 1; j <= 100; j++) {
     row.append(
       ` <div id="row-${i}-col-${j}" class="input-cell" contenteditable="false"></div>`
     );
+    rowArray.push({
+      "font-family" : "Noto Sans", 
+      "font-size" : 14,
+      "text" : "", 
+      "bold" : false, 
+      "italic" : false, 
+      "underlined" : false, 
+      "alignment" : "left", 
+      "color" : "", 
+      "bgcolor" : ""
+
+    })
   }
+  cellData.push(rowArray)
   $("#cells").append(row);
 }
 
@@ -39,6 +53,7 @@ $(".input-cell").dblclick(function (e) {
   $(".input-cell.selected").removeClass(
     "selected top-selected bottom-selected left-selected right-selected"
   );
+  $(this).addClass("selected")
   $(this).attr("contenteditable", "true");
   $(this).focus();
 });
@@ -140,7 +155,17 @@ function selectCell(ele, e, topCell, bottomCell, leftCell, rightCell) {
     );
   }
   $(ele).addClass("selected");
+  changeHeader(getRowCol(ele))
 }
+
+function changeHeader([rowId, colId]){
+  let data=cellData[rowId-1][colId-1];
+  $(".alignment.selected").removeClass("selected");
+  $(`.alignment[data-type=${data.alignment}]`).addClass("selected")
+
+}
+
+
 let startcellSelected = false;
 let startCell = {};
 let endCell = {};
@@ -255,4 +280,17 @@ $(".data-container").mouseup(function(e){
   scrollXRStarted=false;
   scrollXLStarted=false;
   
+}) 
+
+
+
+$(".alignment").click(function(e){
+  let alignment = $(this).attr("data-type");
+  $(".alignment.selected").removeClass("selected");
+  $(this).addClass("selected");
+  $(".input-cell.selected").css("text-align", alignment);
+  $(".input-cell.selected").each(function(index, data){
+    let [rowId, colId]=getRowCol(data);
+    cellData[rowId-1][colId-1].alignment=alignment
+  })
 })
